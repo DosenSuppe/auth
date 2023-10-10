@@ -40,8 +40,10 @@ app.get('/', (req, res) => {        //get requests to the root ("/") will route 
                 if (doc.id == null) {
                     // Set an existing field's value
                     authDatastore.update({ key: verifyHash(authKey) }, { $set: { id: gameId } }, { multi: true }, function (err, numReplaced) { console.log("Replaced:", numReplaced, "entities!"); });
-                
+                    verified = true;
+                    
                 } else {
+                    console.log("FROM DB: ", doc.id, doc.key, gameId, verifyHash(authKey));
                     if (doc.id == gameId && doc.key == verifyHash(authKey)) {
                         verified = true;
                     }
