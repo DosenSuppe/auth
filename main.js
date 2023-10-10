@@ -31,6 +31,7 @@ app.get('/', (req, res) => {        //get requests to the root ("/") will route 
     if (registerNew) {
         if (verify(authKey)) {
             authDatastore.insert({key: authKey, id: null}, function(err, newDoc) { console.log("newDoc:", newDoc); });
+            res.send("<a>Created new key!</a>");
         } else res.sendStatus(403);
                    
     } else {
