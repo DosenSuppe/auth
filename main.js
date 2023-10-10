@@ -17,7 +17,6 @@ function verify(inputString) {
 
 //Idiomatic expression in express to route and respond to a client request
 app.get('/', (req, res) => {        //get requests to the root ("/") will route here
-    let verified = false;
 
     let registerNew = req.query.regNew || false;
     let gameId = req.query.gameId;
@@ -32,7 +31,7 @@ app.get('/', (req, res) => {        //get requests to the root ("/") will route 
     if (registerNew) {
         if (verify(authKey)) {
             authDatastore.insert({key: authKey, id: null}, function(err, newDoc) { console.log("newDoc:", newDoc); });
-        }
+        } else res.sendStatus(403);
                    
     } else {
         authDatastore.findOne({key: verifyHash(authKey)}, function(err, doc) {
@@ -40,21 +39,19 @@ app.get('/', (req, res) => {        //get requests to the root ("/") will route 
                 if (doc.id == null) {
                     // Set an existing field's value
                     authDatastore.update({ key: verifyHash(authKey) }, { $set: { id: gameId } }, { multi: true }, function (err, numReplaced) { console.log("Replaced:", numReplaced, "entities!"); });
-                    verified = true;
+                    res.sendStatus(200);
                     
                 } else {
                     console.log("FROM DB: ", doc.id, doc.key, gameId, verifyHash(authKey));
                     if (doc.id == gameId && doc.key == verifyHash(authKey)) {
-                        verified = true;
-                    }
+                        res.sendStatus(200);
+                    } else res.sendStatus(403);
                 }
-            }
+            } else res.sendStatus(403);
         });
     }
 
-    console.log(gameId, authKey, registerNew, dump, verified);
 
-    res.sendStatus((verified === false)? 403 : 200);
 });
 
 app.listen(port, () => {            //server starts listening for any attempts from a client to connect at port: {port}
