@@ -7,7 +7,7 @@ const port = 5000;                  //Save the port number where your server wil
 const authDatastore = new database({filename: "./db.txt", autoload: true});
 
 function verifyHash(inputString) {
-    return inputString;
+    return (inputString == undefined)? null : inputString;
 }
 
 function verify(inputString) {
