@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "main": "test.js",
   "scripts": {
-    "start": "npm run"
+    "start": "npm i -s express | npm i -s fs | npm i -s nedb"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security",
+    "nedb": "^1.8.0"
   }
 }
