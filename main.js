@@ -22,7 +22,7 @@ app.get('/', (req, res) => {        //get requests to the root ("/") will route 
         }
     });
     
-    res.sendStatus(403).send("Not verified");
+    res.sendStatus(403);
 });
 
 app.listen(port, () => {            //server starts listening for any attempts from a client to connect at port: {port}
