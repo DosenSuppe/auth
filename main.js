@@ -50,7 +50,7 @@ app.get('/', (req, res) => {        //get requests to the root ("/") will route 
         });
     }
 
-    console.log(gameId, authKey, registerNew, dump);
+    console.log(gameId, authKey, registerNew, dump, verified);
 
     res.sendStatus((verified === false)? 403 : 200);
 });
