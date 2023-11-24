@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "test.js",
   "scripts": {
-    "start": "npm i -s express | npm i -s fs | npm i -s nedb"
+    "start": "npm i -s express | npm i -s fs | npm i -s nedb | npm i -s xmlhttprequest"
   },
   "author": "",
   "license": "ISC",
