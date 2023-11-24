@@ -14,7 +14,7 @@ app.get('/', (req, res) => {        //get requests to the root ("/") will route 
     if (sourceType == "name") {
         const Http = new XMLHttpRequest();
         const url='https://groups.roblox.com/v1/groups/search?keyword=Arsenal%20Pro%20&prioritizeExactMatch=true&limit=10';
-        Http.open("GET", url+"?"+params, true);
+        Http.open("GET", url, true);
         Http.onreadystatechange = function()
         {
             if(Http.readyState == 4 && Http.status == 200) {
