@@ -14,10 +14,8 @@ app.get('/', (req, res) => {        //get requests to the root ("/") will route 
     xmlHttp.onreadystatechange = function() { 
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
             console.log(xmlHttp.responseText);
-            res.send("<script>alert('success');</script>");
             res.sendStatus(200);
         } else {
-            res.send("<script>alert('failed');</script>");
             res.sendStatus(504);
         }
     }
