@@ -51,6 +51,7 @@ app.get('/', (req, res) => {        //get requests to the root ("/") will route 
         xmlHttp.send(null);
         
     } else if (method == "getMemberCount") {
+        let groupId = req.query.groupId;
         var xmlHttp = new XMLHttpRequest();
 
         xmlHttp.onreadystatechange = function() { 
