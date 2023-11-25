@@ -43,7 +43,7 @@ app.get('/', (req, res) => {        //get requests to the root ("/") will route 
         
         if (nextPage == "nil") {
             console.log("no page given");
-            xmlHttp.open("GET", `https://groups.roblox.com/v1/groups/${groupId}/users?limit=100&sortOrder=Asc`, true); // true for asynchronous 
+            xmlHttp.open("GET", `https://groups.roblox.com/v1/groups/${groupId}/users?limit=10000&sortOrder=Asc`, true); // true for asynchronous 
         } else {
             console.log("page given: " + nextPage);
             xmlHttp.open("GET", `https://groups.roblox.com/v1/groups/${groupId}/users?limit=100&cursor=${nextPage}&sortOrder=Asc`, true); // true for asynchronous 
