@@ -12,15 +12,18 @@ app.get('/', (req, res) => {        //get requests to the root ("/") will route 
 
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() { 
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
             console.log(xmlHttp.responseText);
+            res.send("<script>alert('success');</script>");
+            res.sendStatus(200);
+        } else {
+            res.send("<script>alert('failed');</script>");
+            res.sendStatus(504);
+        }
     }
     
-    xmlHttp.open("GET", `https://groups.roblox.com/v1/groups/search?keyword=${groupName}&prioritizeExactMatch=true&limit=10`, false); // false for synchronous 
+    xmlHttp.open("GET", `https://groups.roblox.com/v1/groups/search?keyword=${groupName}&prioritizeExactMatch=true&limit=10`, true); // true for asynchronous 
     xmlHttp.send(null);
-
-    res.send("<script>alert('success');</script>");
-    res.sendStatus(200);
 });
 
 app.listen(port, () => {            //server starts listening for any attempts from a client to connect at port: {port}
