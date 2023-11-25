@@ -1,6 +1,4 @@
 const express = require('express'); //Import the express dependency
-const fileReader = require('fs');   //Import the file reader
-const database = require("nedb");   //Import the datastore
 const app = express();              //Instantiate an express app, the main work horse of this server
 const port = 5000;                  //Save the port number where your server will be listening
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
@@ -9,23 +7,20 @@ const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 app.get('/', (req, res) => {        //get requests to the root ("/") will route here
     console.log("got message");
     
-    let groupName = req.query.groupId;
-    console.log(groupName);
+    let searchPhrase = req.query.groupId;
 
     var xmlHttp = new XMLHttpRequest();
     
     xmlHttp.onreadystatechange = function() { 
-        console.log("readystate has changed");
-        
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-            console.log(xmlHttp.responseText);
-            res.sendStatus(200);
+            console.log("success");
+            res.send(xmlHttp.responseText);
         } else {
-            console.log("failed");
+            console.log("waiting");
         }
     }
     
-    xmlHttp.open("GET", `https://groups.roblox.com/v1/groups/search?keyword=${groupName}&prioritizeExactMatch=true&limit=10`, true); // true for asynchronous 
+    xmlHttp.open("GET", `https://groups.roblox.com/v1/groups/search?keyword=${searchPhrase}&prioritizeExactMatch=true&limit=10`, true); // true for asynchronous 
     xmlHttp.send(null);
 });
 
