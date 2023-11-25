@@ -46,6 +46,8 @@ app.get('/', (req, res) => {        //get requests to the root ("/") will route 
         }
         xmlHttp.send(null);
         
+    } else {
+        res.sendStatus(504);
     }
 
     
