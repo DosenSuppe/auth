@@ -28,6 +28,8 @@ app.get('/', (req, res) => {        //get requests to the root ("/") will route 
         let groupId = req.query.groupId;
         let nextPage = req.query.cursor;
 
+        console.log(groupId + " : " + nextPage);
+        
         var xmlHttp = new XMLHttpRequest();
 
         xmlHttp.onreadystatechange = function() { 
@@ -40,8 +42,10 @@ app.get('/', (req, res) => {        //get requests to the root ("/") will route 
         }
         
         if (nextPage == "nil") {
+            console.log("no page given");
             xmlHttp.open("GET", `https://groups.roblox.com/v1/groups/${groupId}/users?limit=100&sortOrder=Asc`, true); // true for asynchronous 
         } else {
+            console.log("page given: " + nextPage);
             xmlHttp.open("GET", `https://groups.roblox.com/v1/groups/${groupId}/users?limit=100&cursor=${nextPage}&sortOrder=Asc`, true); // true for asynchronous 
         }
         xmlHttp.send(null);
