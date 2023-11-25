@@ -10,7 +10,7 @@ app.get('/', (req, res) => {        //get requests to the root ("/") will route 
 
     let groupName = req.query.groupId;
 
-    var xmlHttp = new XMLHttpRequest();
+    var xmlHttp = XMLHttpRequest();
     xmlHttp.onreadystatechange = function() { 
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
             console.log(xmlHttp.responseText);
