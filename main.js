@@ -2,7 +2,7 @@ const express = require('express'); //Import the express dependency
 const fileReader = require('fs');   //Import the file reader
 const database = require("nedb");   //Import the datastore
 const app = express();              //Instantiate an express app, the main work horse of this server
-const port = 10000;                  //Save the port number where your server will be listening
+const port = 5000;                  //Save the port number where your server will be listening
 
 
 //Idiomatic expression in express to route and respond to a client request
