@@ -50,6 +50,21 @@ app.get('/', (req, res) => {        //get requests to the root ("/") will route 
         }
         xmlHttp.send(null);
         
+    } else if (method == "getMemberCount") {
+        var xmlHttp = new XMLHttpRequest();
+
+        xmlHttp.onreadystatechange = function() { 
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                console.log("success");
+                res.send(xmlHttp.responseText);
+            } else {
+                console.log("waiting " + xmlHttp.status);
+            }
+        }
+        
+        xmlHttp.open("GET", `https://groups.roblox.com/v1/groups/${groupId}`, true);
+        xmlHttp.send(null);
+        
     } else {
         res.sendStatus(504);
     }
