@@ -5,23 +5,50 @@ const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 //Idiomatic expression in express to route and respond to a client request
 app.get('/', (req, res) => {        //get requests to the root ("/") will route here
-    console.log("got message");
+    let method = req.query.method;
+    console.log(method);
     
-    let searchPhrase = req.query.groupId;
+    if (method == "getGroup") {
+        let searchPhrase = req.query.searchPhrase;
+        var xmlHttp = new XMLHttpRequest();
 
-    var xmlHttp = new XMLHttpRequest();
-    
-    xmlHttp.onreadystatechange = function() { 
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-            console.log("success");
-            res.send(xmlHttp.responseText);
-        } else {
-            console.log("waiting");
+        xmlHttp.onreadystatechange = function() { 
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                console.log("success");
+                res.send(xmlHttp.responseText);
+            } else {
+                console.log("waiting");
+            }
         }
+        
+        xmlHttp.open("GET", `https://groups.roblox.com/v1/groups/search?keyword=${searchPhrase}&prioritizeExactMatch=true&limit=10`, true); // true for asynchronous 
+        xmlHttp.send(null);
+        
+    } else if (method == "getMembers") { // might wanna change to where this part get the entire member list before sending it off again
+        let groupId = req.query.groupId;
+        let nextPage = req.query.cursor;
+
+        var xmlHttp = new XMLHttpRequest();
+
+        xmlHttp.onreadystatechange = function() { 
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                console.log("success");
+                res.send(xmlHttp.responseText);
+            } else {
+                console.log("waiting");
+            }
+        }
+        
+        if (nextPage == "nil") {
+            xmlHttp.open("GET", `https://groups.roblox.com/v1/groups/${groupId}/users?limit=100&sortOrder=Asc`, true); // true for asynchronous 
+        } else {
+            xmlHttp.open("GET", `https://groups.roblox.com/v1/groups/${groupId}/users?limit=100&cursor=${nextPage}&sortOrder=Asc`, true); // true for asynchronous 
+        }
+        xmlHttp.send(null);
+        
     }
+
     
-    xmlHttp.open("GET", `https://groups.roblox.com/v1/groups/search?keyword=${searchPhrase}&prioritizeExactMatch=true&limit=10`, true); // true for asynchronous 
-    xmlHttp.send(null);
 });
 
 app.listen(port, () => {            //server starts listening for any attempts from a client to connect at port: {port}
