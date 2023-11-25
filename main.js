@@ -17,7 +17,7 @@ app.get('/', (req, res) => {        //get requests to the root ("/") will route 
                 console.log("success");
                 res.send(xmlHttp.responseText);
             } else {
-                console.log("waiting");
+                console.log("waiting " + xmlHttp.status);
             }
         }
         
