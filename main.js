@@ -12,18 +12,20 @@ app.get('/', (req, res) => {        //get requests to the root ("/") will route 
     let sourceType = req.query.sourceType;
 
     if (sourceType == "name") {
-        const Http = new XMLHttpRequest();
-        const url='https://groups.roblox.com/v1/groups/search?keyword=Arsenal%20Pro%20&prioritizeExactMatch=true&limit=10';
-        Http.open("GET", url, true);
-        Http.onreadystatechange = function()
-        {
-            if(Http.readyState == 4 && Http.status == 200) {
-                console.log(Http.responseText);
-            } else {
-                alert("NEEE");
-            }
-        }
-        Http.send(null);  
+        console.log("sourceType = name");
+
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "https://groups.roblox.com/v1/groups/search?keyword=Arsenal%20Pro%20&prioritizeExactMatch=true&limit=10");
+        xhr.send();
+        xhr.responseType = "json";
+        xhr.onload = () => {
+          if (xhr.readyState == 4 && xhr.status == 200) {
+            const data = xhr.response;
+            console.log(data);
+          } else {
+            console.log(`Error: ${xhr.status}`);
+          }
+        };
     } 
 });
 
