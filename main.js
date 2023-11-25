@@ -7,16 +7,21 @@ const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 //Idiomatic expression in express to route and respond to a client request
 app.get('/', (req, res) => {        //get requests to the root ("/") will route here
-
+    console.log("got message");
+    
     let groupName = req.query.groupId;
+    console.log(groupName);
 
     var xmlHttp = new XMLHttpRequest();
+    
     xmlHttp.onreadystatechange = function() { 
+        console.log("readystate has changed");
+        
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
             console.log(xmlHttp.responseText);
             res.sendStatus(200);
         } else {
-            res.sendStatus(504);
+            console.log("failed");
         }
     }
     
